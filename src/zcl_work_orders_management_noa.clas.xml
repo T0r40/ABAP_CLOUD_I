@@ -1,0 +1,194 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<abapGit version="v1.0.0" serializer="LCL_OBJECT_CLAS" serializer_version="v1.0.0">
+ <asx:abap xmlns:asx="http://www.sap.com/abapxml" version="1.0">
+  <asx:values>
+   <VSEOCLASS>
+    <CLSNAME>ZCL_WORK_ORDERS_MANAGEMENT_NOA</CLSNAME>
+    <LANGU>E</LANGU>
+    <DESCRIPT>Work order management</DESCRIPT>
+    <STATE>1</STATE>
+    <CLSCCINCL>X</CLSCCINCL>
+    <FIXPT>X</FIXPT>
+    <UNICODE>X</UNICODE>
+   </VSEOCLASS>
+   <DESCRIPTIONS>
+    <SEOCOMPOTX>
+     <CLSNAME>ZCL_WORK_ORDERS_MANAGEMENT_NOA</CLSNAME>
+     <CMPNAME>CHECK_CUSTOMER_EXISTS</CMPNAME>
+     <LANGU>E</LANGU>
+     <DESCRIPT>Check that the customer exists in the table ztcustomer_noa</DESCRIPT>
+    </SEOCOMPOTX>
+    <SEOCOMPOTX>
+     <CLSNAME>ZCL_WORK_ORDERS_MANAGEMENT_NOA</CLSNAME>
+     <CMPNAME>CHECK_ORDER_EXISTS</CMPNAME>
+     <LANGU>E</LANGU>
+     <DESCRIPT>Check that the work order exists in the table ztwork_order_n</DESCRIPT>
+    </SEOCOMPOTX>
+    <SEOCOMPOTX>
+     <CLSNAME>ZCL_WORK_ORDERS_MANAGEMENT_NOA</CLSNAME>
+     <CMPNAME>CHECK_ORDER_HISTORY</CMPNAME>
+     <LANGU>E</LANGU>
+     <DESCRIPT>Check if the work order has a record in the table ztwk_ord_h</DESCRIPT>
+    </SEOCOMPOTX>
+    <SEOCOMPOTX>
+     <CLSNAME>ZCL_WORK_ORDERS_MANAGEMENT_NOA</CLSNAME>
+     <CMPNAME>CHECK_TECHNICIAN_EXISTS</CMPNAME>
+     <LANGU>E</LANGU>
+     <DESCRIPT>Check that the technician exists in the table zttechnician_n</DESCRIPT>
+    </SEOCOMPOTX>
+    <SEOCOMPOTX>
+     <CLSNAME>ZCL_WORK_ORDERS_MANAGEMENT_NOA</CLSNAME>
+     <CMPNAME>VALIDATE_CREATE_ORDER</CMPNAME>
+     <LANGU>E</LANGU>
+     <DESCRIPT>Ensures that a work order can be updated only if it exists a</DESCRIPT>
+    </SEOCOMPOTX>
+    <SEOCOMPOTX>
+     <CLSNAME>ZCL_WORK_ORDERS_MANAGEMENT_NOA</CLSNAME>
+     <CMPNAME>VALIDATE_DELETE_ORDER</CMPNAME>
+     <LANGU>E</LANGU>
+     <DESCRIPT>Validates that the status and priority values of an order ar</DESCRIPT>
+    </SEOCOMPOTX>
+    <SEOCOMPOTX>
+     <CLSNAME>ZCL_WORK_ORDERS_MANAGEMENT_NOA</CLSNAME>
+     <CMPNAME>VALIDATE_STATUS_AND_PRIORITY</CMPNAME>
+     <LANGU>E</LANGU>
+     <DESCRIPT>Method that validates whether or not it is possible to delet</DESCRIPT>
+    </SEOCOMPOTX>
+    <SEOCOMPOTX>
+     <CLSNAME>ZCL_WORK_ORDERS_MANAGEMENT_NOA</CLSNAME>
+     <CMPNAME>VALIDATE_UPDATE_ORDER</CMPNAME>
+     <LANGU>E</LANGU>
+     <DESCRIPT>Verify that only work orders in pending status and without m</DESCRIPT>
+    </SEOCOMPOTX>
+   </DESCRIPTIONS>
+   <DESCRIPTIONS_SUB>
+    <SEOSUBCOTX>
+     <CMPNAME>CHECK_CUSTOMER_EXISTS</CMPNAME>
+     <SCONAME>IV_CUSTOMER_ID</SCONAME>
+     <LANGU>E</LANGU>
+     <DESCRIPT>Customer id</DESCRIPT>
+    </SEOSUBCOTX>
+    <SEOSUBCOTX>
+     <CMPNAME>CHECK_CUSTOMER_EXISTS</CMPNAME>
+     <SCONAME>RV_EXISTS</SCONAME>
+     <LANGU>E</LANGU>
+     <DESCRIPT>Flag that returns true or false depending on whether or not</DESCRIPT>
+    </SEOSUBCOTX>
+    <SEOSUBCOTX>
+     <CMPNAME>CHECK_ORDER_EXISTS</CMPNAME>
+     <SCONAME>IV_WORK_ORDER_ID</SCONAME>
+     <LANGU>E</LANGU>
+     <DESCRIPT>Work order id</DESCRIPT>
+    </SEOSUBCOTX>
+    <SEOSUBCOTX>
+     <CMPNAME>CHECK_ORDER_EXISTS</CMPNAME>
+     <SCONAME>RV_EXISTS</SCONAME>
+     <LANGU>E</LANGU>
+     <DESCRIPT>Flag that returns true or false depending on whether or not</DESCRIPT>
+    </SEOSUBCOTX>
+    <SEOSUBCOTX>
+     <CMPNAME>CHECK_ORDER_HISTORY</CMPNAME>
+     <SCONAME>IV_WORK_ORDER_ID</SCONAME>
+     <LANGU>E</LANGU>
+     <DESCRIPT>Work order id</DESCRIPT>
+    </SEOSUBCOTX>
+    <SEOSUBCOTX>
+     <CMPNAME>CHECK_ORDER_HISTORY</CMPNAME>
+     <SCONAME>RV_EXISTS</SCONAME>
+     <LANGU>E</LANGU>
+     <DESCRIPT>Flag that returns true or false depending on whether or not</DESCRIPT>
+    </SEOSUBCOTX>
+    <SEOSUBCOTX>
+     <CMPNAME>CHECK_TECHNICIAN_EXISTS</CMPNAME>
+     <SCONAME>IV_TECHNICIAN_ID</SCONAME>
+     <LANGU>E</LANGU>
+     <DESCRIPT>Technician id</DESCRIPT>
+    </SEOSUBCOTX>
+    <SEOSUBCOTX>
+     <CMPNAME>CHECK_TECHNICIAN_EXISTS</CMPNAME>
+     <SCONAME>RV_EXISTS</SCONAME>
+     <LANGU>E</LANGU>
+     <DESCRIPT>Flag that returns true or false depending on whether or not</DESCRIPT>
+    </SEOSUBCOTX>
+    <SEOSUBCOTX>
+     <CMPNAME>VALIDATE_CREATE_ORDER</CMPNAME>
+     <SCONAME>IV_CUSTOMER_ID</SCONAME>
+     <LANGU>E</LANGU>
+     <DESCRIPT> Customer id</DESCRIPT>
+    </SEOSUBCOTX>
+    <SEOSUBCOTX>
+     <CMPNAME>VALIDATE_CREATE_ORDER</CMPNAME>
+     <SCONAME>IV_PRIORITY</SCONAME>
+     <LANGU>E</LANGU>
+     <DESCRIPT> Priority</DESCRIPT>
+    </SEOSUBCOTX>
+    <SEOSUBCOTX>
+     <CMPNAME>VALIDATE_CREATE_ORDER</CMPNAME>
+     <SCONAME>IV_TECHNICIAN_ID</SCONAME>
+     <LANGU>E</LANGU>
+     <DESCRIPT> Technician id</DESCRIPT>
+    </SEOSUBCOTX>
+    <SEOSUBCOTX>
+     <CMPNAME>VALIDATE_CREATE_ORDER</CMPNAME>
+     <SCONAME>RV_VALID</SCONAME>
+     <LANGU>E</LANGU>
+     <DESCRIPT>Flag that returns true or false depending on whether the val</DESCRIPT>
+    </SEOSUBCOTX>
+    <SEOSUBCOTX>
+     <CMPNAME>VALIDATE_DELETE_ORDER</CMPNAME>
+     <SCONAME>IV_STATUS</SCONAME>
+     <LANGU>E</LANGU>
+     <DESCRIPT>Status</DESCRIPT>
+    </SEOSUBCOTX>
+    <SEOSUBCOTX>
+     <CMPNAME>VALIDATE_DELETE_ORDER</CMPNAME>
+     <SCONAME>IV_WORK_ORDER_ID</SCONAME>
+     <LANGU>E</LANGU>
+     <DESCRIPT>Work order id</DESCRIPT>
+    </SEOSUBCOTX>
+    <SEOSUBCOTX>
+     <CMPNAME>VALIDATE_DELETE_ORDER</CMPNAME>
+     <SCONAME>RV_VALID</SCONAME>
+     <LANGU>E</LANGU>
+     <DESCRIPT>Flag that returns true or false depending on whether the val</DESCRIPT>
+    </SEOSUBCOTX>
+    <SEOSUBCOTX>
+     <CMPNAME>VALIDATE_STATUS_AND_PRIORITY</CMPNAME>
+     <SCONAME>IV_PRIORITY</SCONAME>
+     <LANGU>E</LANGU>
+     <DESCRIPT>Priority</DESCRIPT>
+    </SEOSUBCOTX>
+    <SEOSUBCOTX>
+     <CMPNAME>VALIDATE_STATUS_AND_PRIORITY</CMPNAME>
+     <SCONAME>IV_STATUS</SCONAME>
+     <LANGU>E</LANGU>
+     <DESCRIPT>Status</DESCRIPT>
+    </SEOSUBCOTX>
+    <SEOSUBCOTX>
+     <CMPNAME>VALIDATE_STATUS_AND_PRIORITY</CMPNAME>
+     <SCONAME>RV_VALID</SCONAME>
+     <LANGU>E</LANGU>
+     <DESCRIPT>Flag that returns true or false depending on whether the val</DESCRIPT>
+    </SEOSUBCOTX>
+    <SEOSUBCOTX>
+     <CMPNAME>VALIDATE_UPDATE_ORDER</CMPNAME>
+     <SCONAME>IV_STATUS</SCONAME>
+     <LANGU>E</LANGU>
+     <DESCRIPT>Status</DESCRIPT>
+    </SEOSUBCOTX>
+    <SEOSUBCOTX>
+     <CMPNAME>VALIDATE_UPDATE_ORDER</CMPNAME>
+     <SCONAME>IV_WORK_ORDER_ID</SCONAME>
+     <LANGU>E</LANGU>
+     <DESCRIPT>Work order id</DESCRIPT>
+    </SEOSUBCOTX>
+    <SEOSUBCOTX>
+     <CMPNAME>VALIDATE_UPDATE_ORDER</CMPNAME>
+     <SCONAME>RV_VALID</SCONAME>
+     <LANGU>E</LANGU>
+     <DESCRIPT>Flag that returns true or false depending on whether the val</DESCRIPT>
+    </SEOSUBCOTX>
+   </DESCRIPTIONS_SUB>
+  </asx:values>
+ </asx:abap>
+</abapGit>
