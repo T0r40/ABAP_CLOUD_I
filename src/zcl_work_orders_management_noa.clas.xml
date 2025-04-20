@@ -16,37 +16,61 @@
      <CLSNAME>ZCL_WORK_ORDERS_MANAGEMENT_NOA</CLSNAME>
      <CMPNAME>CHECK_CUSTOMER_EXISTS</CMPNAME>
      <LANGU>E</LANGU>
-     <DESCRIPT>Check that the customer exists in the table ztcustomer_noa</DESCRIPT>
+     <DESCRIPT>Method that checks the customer exists in the table ztcustom</DESCRIPT>
     </SEOCOMPOTX>
     <SEOCOMPOTX>
      <CLSNAME>ZCL_WORK_ORDERS_MANAGEMENT_NOA</CLSNAME>
      <CMPNAME>CHECK_ORDER_EXISTS</CMPNAME>
      <LANGU>E</LANGU>
-     <DESCRIPT>Check that the work order exists in the table ztwork_order_n</DESCRIPT>
+     <DESCRIPT>Method that checks that the work order exists in the table z</DESCRIPT>
     </SEOCOMPOTX>
     <SEOCOMPOTX>
      <CLSNAME>ZCL_WORK_ORDERS_MANAGEMENT_NOA</CLSNAME>
      <CMPNAME>CHECK_ORDER_HISTORY</CMPNAME>
      <LANGU>E</LANGU>
-     <DESCRIPT>Check if the work order has a record in the table ztwk_ord_h</DESCRIPT>
+     <DESCRIPT>Method that checks if the work order has a record in the tab</DESCRIPT>
     </SEOCOMPOTX>
     <SEOCOMPOTX>
      <CLSNAME>ZCL_WORK_ORDERS_MANAGEMENT_NOA</CLSNAME>
      <CMPNAME>CHECK_TECHNICIAN_EXISTS</CMPNAME>
      <LANGU>E</LANGU>
-     <DESCRIPT>Check that the technician exists in the table zttechnician_n</DESCRIPT>
+     <DESCRIPT>Method that checks the technician exists in the table zttech</DESCRIPT>
+    </SEOCOMPOTX>
+    <SEOCOMPOTX>
+     <CLSNAME>ZCL_WORK_ORDERS_MANAGEMENT_NOA</CLSNAME>
+     <CMPNAME>CREATE_WORK_ORDER</CMPNAME>
+     <LANGU>E</LANGU>
+     <DESCRIPT>Method that creates a new work order (to insert a record in</DESCRIPT>
+    </SEOCOMPOTX>
+    <SEOCOMPOTX>
+     <CLSNAME>ZCL_WORK_ORDERS_MANAGEMENT_NOA</CLSNAME>
+     <CMPNAME>DELETE_WORK_ORDER</CMPNAME>
+     <LANGU>E</LANGU>
+     <DESCRIPT>Method that deletes a work order (to delete a record in the</DESCRIPT>
+    </SEOCOMPOTX>
+    <SEOCOMPOTX>
+     <CLSNAME>ZCL_WORK_ORDERS_MANAGEMENT_NOA</CLSNAME>
+     <CMPNAME>READ_WORK_ORDER</CMPNAME>
+     <LANGU>E</LANGU>
+     <DESCRIPT>Method that reads a work order (to read a record in the tabl</DESCRIPT>
+    </SEOCOMPOTX>
+    <SEOCOMPOTX>
+     <CLSNAME>ZCL_WORK_ORDERS_MANAGEMENT_NOA</CLSNAME>
+     <CMPNAME>UPDATE_WORK_ORDER</CMPNAME>
+     <LANGU>E</LANGU>
+     <DESCRIPT>Method that updates a work order (to update a record in the</DESCRIPT>
     </SEOCOMPOTX>
     <SEOCOMPOTX>
      <CLSNAME>ZCL_WORK_ORDERS_MANAGEMENT_NOA</CLSNAME>
      <CMPNAME>VALIDATE_CREATE_ORDER</CMPNAME>
      <LANGU>E</LANGU>
-     <DESCRIPT>Ensures that a work order can be updated only if it exists a</DESCRIPT>
+     <DESCRIPT>Method that ensures that a work order can be updated only if</DESCRIPT>
     </SEOCOMPOTX>
     <SEOCOMPOTX>
      <CLSNAME>ZCL_WORK_ORDERS_MANAGEMENT_NOA</CLSNAME>
      <CMPNAME>VALIDATE_DELETE_ORDER</CMPNAME>
      <LANGU>E</LANGU>
-     <DESCRIPT>Validates that the status and priority values of an order ar</DESCRIPT>
+     <DESCRIPT>Method that validates that the status and priority values of</DESCRIPT>
     </SEOCOMPOTX>
     <SEOCOMPOTX>
      <CLSNAME>ZCL_WORK_ORDERS_MANAGEMENT_NOA</CLSNAME>
@@ -58,7 +82,7 @@
      <CLSNAME>ZCL_WORK_ORDERS_MANAGEMENT_NOA</CLSNAME>
      <CMPNAME>VALIDATE_UPDATE_ORDER</CMPNAME>
      <LANGU>E</LANGU>
-     <DESCRIPT>Verify that only work orders in pending status and without m</DESCRIPT>
+     <DESCRIPT>Method that verify that only work orders in pending status a</DESCRIPT>
     </SEOCOMPOTX>
    </DESCRIPTIONS>
    <DESCRIPTIONS_SUB>
@@ -109,6 +133,54 @@
      <SCONAME>RV_EXISTS</SCONAME>
      <LANGU>E</LANGU>
      <DESCRIPT>Flag that returns true or false depending on whether or not</DESCRIPT>
+    </SEOSUBCOTX>
+    <SEOSUBCOTX>
+     <CMPNAME>CREATE_WORK_ORDER</CMPNAME>
+     <SCONAME>IV_WORK_ORDER</SCONAME>
+     <LANGU>E</LANGU>
+     <DESCRIPT>Work order type (defined in the public section of this class</DESCRIPT>
+    </SEOSUBCOTX>
+    <SEOSUBCOTX>
+     <CMPNAME>CREATE_WORK_ORDER</CMPNAME>
+     <SCONAME>RV_OK</SCONAME>
+     <LANGU>E</LANGU>
+     <DESCRIPT>Flag that returns true or false if the record could be inser</DESCRIPT>
+    </SEOSUBCOTX>
+    <SEOSUBCOTX>
+     <CMPNAME>DELETE_WORK_ORDER</CMPNAME>
+     <SCONAME>IV_WORK_ORDER</SCONAME>
+     <LANGU>E</LANGU>
+     <DESCRIPT>Work order type (defined in the public section of this class</DESCRIPT>
+    </SEOSUBCOTX>
+    <SEOSUBCOTX>
+     <CMPNAME>DELETE_WORK_ORDER</CMPNAME>
+     <SCONAME>RV_OK</SCONAME>
+     <LANGU>E</LANGU>
+     <DESCRIPT>Flag that returns true or false if the record could be delet</DESCRIPT>
+    </SEOSUBCOTX>
+    <SEOSUBCOTX>
+     <CMPNAME>READ_WORK_ORDER</CMPNAME>
+     <SCONAME>IV_WORK_ORDER_ID</SCONAME>
+     <LANGU>E</LANGU>
+     <DESCRIPT>Work order id</DESCRIPT>
+    </SEOSUBCOTX>
+    <SEOSUBCOTX>
+     <CMPNAME>READ_WORK_ORDER</CMPNAME>
+     <SCONAME>RV_OK</SCONAME>
+     <LANGU>E</LANGU>
+     <DESCRIPT>Flag that returns true or false if the record could be read</DESCRIPT>
+    </SEOSUBCOTX>
+    <SEOSUBCOTX>
+     <CMPNAME>UPDATE_WORK_ORDER</CMPNAME>
+     <SCONAME>IV_WORK_ORDER</SCONAME>
+     <LANGU>E</LANGU>
+     <DESCRIPT>Work order type (defined in the public section of this class</DESCRIPT>
+    </SEOSUBCOTX>
+    <SEOSUBCOTX>
+     <CMPNAME>UPDATE_WORK_ORDER</CMPNAME>
+     <SCONAME>RV_OK</SCONAME>
+     <LANGU>E</LANGU>
+     <DESCRIPT>Flag that returns true or false if the record could be updat</DESCRIPT>
     </SEOSUBCOTX>
     <SEOSUBCOTX>
      <CMPNAME>VALIDATE_CREATE_ORDER</CMPNAME>

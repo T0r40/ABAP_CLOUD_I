@@ -1,0 +1,48 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<abapGit version="v1.0.0" serializer="LCL_OBJECT_CLAS" serializer_version="v1.0.0">
+ <asx:abap xmlns:asx="http://www.sap.com/abapxml" version="1.0">
+  <asx:values>
+   <VSEOCLASS>
+    <CLSNAME>ZCL_WORK_ORDER_CRUD_TEST_NOA</CLSNAME>
+    <LANGU>E</LANGU>
+    <DESCRIPT>Work order management CRUD TEST NOA</DESCRIPT>
+    <STATE>1</STATE>
+    <CLSCCINCL>X</CLSCCINCL>
+    <FIXPT>X</FIXPT>
+    <UNICODE>X</UNICODE>
+   </VSEOCLASS>
+   <DESCRIPTIONS>
+    <SEOCOMPOTX>
+     <CLSNAME>ZCL_WORK_ORDER_CRUD_TEST_NOA</CLSNAME>
+     <CMPNAME>PREPARE_DDBB</CMPNAME>
+     <LANGU>E</LANGU>
+     <DESCRIPT>Method that fills in the tables zttechnician_noa and ztcusto</DESCRIPT>
+    </SEOCOMPOTX>
+    <SEOCOMPOTX>
+     <CLSNAME>ZCL_WORK_ORDER_CRUD_TEST_NOA</CLSNAME>
+     <CMPNAME>TEST_CREATE_WORK_ORDER</CMPNAME>
+     <LANGU>E</LANGU>
+     <DESCRIPT>Method that tests the work order creation functionality</DESCRIPT>
+    </SEOCOMPOTX>
+    <SEOCOMPOTX>
+     <CLSNAME>ZCL_WORK_ORDER_CRUD_TEST_NOA</CLSNAME>
+     <CMPNAME>TEST_DELETE_WORK_ORDER</CMPNAME>
+     <LANGU>E</LANGU>
+     <DESCRIPT>Method that tests the work order delete functionality</DESCRIPT>
+    </SEOCOMPOTX>
+    <SEOCOMPOTX>
+     <CLSNAME>ZCL_WORK_ORDER_CRUD_TEST_NOA</CLSNAME>
+     <CMPNAME>TEST_READ_WORK_ORDER</CMPNAME>
+     <LANGU>E</LANGU>
+     <DESCRIPT>Method that tests the work order read functionality</DESCRIPT>
+    </SEOCOMPOTX>
+    <SEOCOMPOTX>
+     <CLSNAME>ZCL_WORK_ORDER_CRUD_TEST_NOA</CLSNAME>
+     <CMPNAME>TEST_UPDATE_WORK_ORDER</CMPNAME>
+     <LANGU>E</LANGU>
+     <DESCRIPT>Method that tests the work order update functionality</DESCRIPT>
+    </SEOCOMPOTX>
+   </DESCRIPTIONS>
+  </asx:values>
+ </asx:abap>
+</abapGit>
