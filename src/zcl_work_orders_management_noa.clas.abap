@@ -181,6 +181,9 @@ ENDCLASS.
 CLASS zcl_work_orders_management_noa IMPLEMENTATION.
 
   METHOD validate_create_order.
+
+    rv_valid = abap_true.
+
     " Check if customer exists
     DATA(lv_customer_exists) = check_customer_exists( iv_customer_id ).
     IF lv_customer_exists IS INITIAL.
@@ -196,13 +199,14 @@ CLASS zcl_work_orders_management_noa IMPLEMENTATION.
     ENDIF.
 
     " Check if priority is valid
-    IF iv_priority NE c_valid_priority_high
-    OR iv_priority NE c_valid_priority_low.
+    IF iv_priority EQ c_valid_priority_high
+    OR iv_priority EQ c_valid_priority_low.
+      rv_valid = abap_true.
+    ELSE.
       rv_valid = abap_false.
       RETURN.
     ENDIF.
 
-    rv_valid = abap_true.
   ENDMETHOD.
 
   METHOD validate_delete_order.
