@@ -1,4 +1,4 @@
-# Work Order Management – Requirements
+# Work Order Management
 
 ## Table of Contents
 
