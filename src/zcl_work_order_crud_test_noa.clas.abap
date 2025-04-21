@@ -27,7 +27,8 @@ CLASS zcl_work_order_crud_test_noa DEFINITION
       "!    Method that tests the work order update functionality
       "! </p>
       "!
-      test_update_work_order,
+      test_update_work_order
+        IMPORTING ev_out TYPE REF TO if_oo_adt_classrun_out,
       "! <p class="shorttext synchronized" lang="en">
       "!    Method that tests the work order delete functionality
       "! </p>
@@ -66,6 +67,9 @@ CLASS zcl_work_order_crud_test_noa IMPLEMENTATION.
 
     "Test for reading a work order
     test_read_work_order( ev_out = out ).
+
+    "Test for updating a work order
+    test_update_work_order( ev_out = out ).
 
   ENDMETHOD.
 
@@ -147,6 +151,25 @@ CLASS zcl_work_order_crud_test_noa IMPLEMENTATION.
     ELSE.
       ev_out->write( | The record with WORK ORDER ID: { ls_work_order_ex_4-work_order_id } hasn't been successfully created.| ).
     ENDIF.
+
+    " Create a new work order
+    DATA(ls_work_order_ex_5) = VALUE ztwork_order_noa(
+    work_order_id  = 'WO005'
+    customer_id    = 'CUST001'
+    technician_id  = 'TECH001'
+    creation_date  = '20240401'
+    status         = 'PE'
+    priority       = 'A'
+    description    = 'Electrical wiring installation'
+  ).
+
+    lv_success = o_work_orders_management->create_work_order( iv_work_order = ls_work_order_ex_5 ).
+
+    IF lv_success = abap_true.
+      ev_out->write( | The record with WORK ORDER ID: { ls_work_order_ex_5-work_order_id }  has been successfully created. | ).
+    ELSE.
+      ev_out->write( | The record with WORK ORDER ID: { ls_work_order_ex_5-work_order_id }  hasn't been successfully created. | ).
+    ENDIF.
   ENDMETHOD.
 
   METHOD test_delete_work_order.
@@ -199,20 +222,38 @@ CLASS zcl_work_order_crud_test_noa IMPLEMENTATION.
     DATA:lv_work_order_id TYPE ztwork_order_noa-work_order_id VALUE 'WO001',
          lv_work_order    TYPE ztwork_order_noa.
 
-    " Verificar si existe
     DATA(lv_success) = o_work_orders_management->read_work_order(
     EXPORTING iv_work_order_id = lv_work_order_id
     IMPORTING ev_read_work_order = lv_work_order ).
 
-    " Mostrar el resultado
     IF lv_success = abap_true.
-      ev_out->write( |The work order { lv_work_order_id } exists in the database. { lv_work_order-customer_id }| ).
+      ev_out->write( |The work order { lv_work_order_id } exists in the database. Work order: { lv_work_order-work_order_id }, Status: { lv_work_order-status }, Customer id: { lv_work_order-customer_id }, Technical id: { lv_work_order-technician_id }| &&
+                     | Priority: { lv_work_order-priority }, Creation date: { lv_work_order-creation_date }, Description: { lv_work_order-description }| ).
     ELSE.
       ev_out->write( |The work order { lv_work_order_id } hasn't been found.| ).
     ENDIF.
   ENDMETHOD.
 
   METHOD test_update_work_order.
+
+    DATA(ls_updated_order) = VALUE ztwork_order_noa(
+      work_order_id  = 'WO005'
+      customer_id    = 'CUST001'
+      technician_id  = 'TECH005'
+      creation_date  = '20240401'
+      status         = ' '
+      priority       = 'L'
+      description    = 'Update something...'
+    ).
+
+    DATA(lv_success) = o_work_orders_management->update_work_order(
+                         iv_work_order = ls_updated_order ).
+
+    IF lv_success = abap_true.
+      ev_out->write( |The work order { ls_updated_order-work_order_id } has been updated succesfully.| ).
+    ELSE.
+      ev_out->write( |The work order couldn't be updated: { ls_updated_order-work_order_id }.| ).
+    ENDIF.
 
   ENDMETHOD.
 
