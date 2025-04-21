@@ -8,6 +8,11 @@ CLASS zcl_work_orders_management_noa DEFINITION
     ty_work_order      TYPE ztwork_order_noa.
 
     METHODS:
+      "! <p class="shorttext synchronized" lang="en">
+      "!    Constructor method
+      "! </p>
+      "!
+      constructor,
 
       "! <p class="shorttext synchronized" lang="en">
       "!    Method that ensures that a work order can be updated only if it exists and its status is valid for modification.
@@ -114,7 +119,17 @@ CLASS zcl_work_orders_management_noa DEFINITION
       "! </p>
       delete_work_order
         IMPORTING iv_work_order TYPE ty_work_order
-        RETURNING VALUE(rv_ok)  TYPE abap_bool.
+        RETURNING VALUE(rv_ok)  TYPE abap_bool,
+
+      "! <p class="shorttext synchronized" lang="en"></p>
+      "! Method that checks if the user has authorizations to do an operation in the database
+      "! @parameter iv_activity | <p class="shorttext synchronized" lang="en">Kind of operation in the database</p>
+      "! @parameter rv_authorized | <p class="shorttext synchronized" lang="en">
+      "!  Flag that returns true or false depending on whether the user is authorized to do the operation in database
+      "! </p>
+      check_authorization
+        IMPORTING iv_activity          TYPE c
+        RETURNING VALUE(rv_authorized) TYPE abap_bool.
 
 
   PROTECTED SECTION.
@@ -124,6 +139,10 @@ CLASS zcl_work_orders_management_noa DEFINITION
                c_valid_status_completed TYPE string VALUE 'CO',
                c_valid_priority_high    TYPE c VALUE 'A',
                c_valid_priority_low     TYPE c VALUE 'B'.
+
+    DATA: t_cons_status   TYPE RANGE OF string,
+          t_cons_priority TYPE RANGE OF c.
+
     METHODS:
 
       "! <p class="shorttext synchronized" lang="en">
@@ -199,8 +218,7 @@ CLASS zcl_work_orders_management_noa IMPLEMENTATION.
     ENDIF.
 
     " Check if priority is valid
-    IF iv_priority EQ c_valid_priority_high
-    OR iv_priority EQ c_valid_priority_low.
+    IF iv_priority IN t_cons_priority.
       rv_valid = abap_true.
     ELSE.
       rv_valid = abap_false.
@@ -237,15 +255,13 @@ CLASS zcl_work_orders_management_noa IMPLEMENTATION.
 
   METHOD validate_status_and_priority.
     " Validate the status value
-    IF iv_status NE c_valid_status_completed
-    OR iv_status NE c_valid_status_pending.
+    IF iv_status NOT IN t_cons_status.
       rv_valid = abap_false.
       RETURN.
     ENDIF.
 
     " Validate the priority value
-    IF iv_priority NE c_valid_priority_high
-    OR iv_priority NE c_valid_priority_low.
+    IF iv_priority NOT IN t_cons_priority.
       rv_valid = abap_false.
       RETURN.
     ENDIF.
@@ -262,8 +278,7 @@ CLASS zcl_work_orders_management_noa IMPLEMENTATION.
     ENDIF.
 
     " Check if the order status is editable (e.g., Pending)
-    IF iv_status EQ c_valid_status_completed
-    OR iv_status EQ c_valid_status_pending.
+    IF iv_status IN t_cons_status.
       rv_valid = abap_false.
       RETURN.
     ENDIF.
@@ -398,6 +413,33 @@ CLASS zcl_work_orders_management_noa IMPLEMENTATION.
     IF sy-subrc = 0.
       rv_ok = abap_true.
     ENDIF.
+
+  ENDMETHOD.
+
+  METHOD check_authorization.
+    rv_authorized = abap_false.
+
+    AUTHORITY-CHECK OBJECT 'ZAO_TWORK'
+      ID 'ZAF_AUTH' FIELD iv_activity.
+
+    IF sy-subrc = 0.
+      rv_authorized = abap_true.
+    ENDIF.
+  ENDMETHOD.
+
+  METHOD constructor.
+
+    " Inicialice status constans range
+    t_cons_status = VALUE #(
+      ( sign = 'I' option = 'EQ' low = c_valid_status_pending )
+      ( sign = 'I' option = 'EQ' low = c_valid_status_completed )
+    ).
+
+    " Inicialice priority constans range
+    t_cons_priority = VALUE #(
+      ( sign = 'I' option = 'EQ' low = c_valid_priority_high )
+      ( sign = 'I' option = 'EQ' low = c_valid_priority_low )
+    ).
 
   ENDMETHOD.
 

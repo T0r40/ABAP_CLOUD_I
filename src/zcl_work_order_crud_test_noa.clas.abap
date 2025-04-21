@@ -44,6 +44,71 @@ CLASS zcl_work_order_crud_test_noa DEFINITION
 
   PROTECTED SECTION.
   PRIVATE SECTION.
+
+    METHODS:
+
+      "! <p class="shorttext synchronized" lang="en">
+      "!   Method that displays a message when the user tries to create a new work order
+      "! </p>
+      "!
+      "! @parameter iv_success | <p class="shorttext synchronized" lang="en">Operation success flag</p>
+      "! @parameter iv_work_order | <p class="shorttext synchronized" lang="en">Work order id</p>
+      display_creation_result
+        IMPORTING
+          iv_success    TYPE abap_bool
+          iv_work_order TYPE ztwork_order_noa
+          ev_out        TYPE REF TO if_oo_adt_classrun_out,
+
+      "! <p class="shorttext synchronized" lang="en">
+      "!   Method that displays a message when the user tries to delete a work order
+      "! </p>
+      "!
+      "! @parameter iv_success | <p class="shorttext synchronized" lang="en">Operation success flag</p>
+      "! @parameter iv_work_order_id | <p class="shorttext synchronized" lang="en">Work order id</p>
+      display_deletion_result
+        IMPORTING
+          iv_success       TYPE abap_bool
+          iv_work_order_id TYPE zde_work_order_id_noa
+          ev_out           TYPE REF TO if_oo_adt_classrun_out,
+
+      "! <p class="shorttext synchronized" lang="en">
+      "!    Method that displays a message when the user tries to read a work order
+      "! </p>
+      "!
+      "! @parameter iv_success | <p class="shorttext synchronized" lang="en">Operation success flag</p>
+      "! @parameter iv_work_order_id | <p class="shorttext synchronized" lang="en">Work order id</p>
+      "! @parameter is_work_order | <p class="shorttext synchronized" lang="en">Work order structure</p>
+      display_read_result
+        IMPORTING
+          iv_success       TYPE abap_bool
+          iv_work_order_id TYPE zde_work_order_id_noa
+          is_work_order    TYPE ztwork_order_noa
+          ev_out           TYPE REF TO if_oo_adt_classrun_out,
+
+      "! <p class="shorttext synchronized" lang="en">
+      "!    Method that displays a message when the user tries to update a work order
+      "! </p>
+      "!
+      "! @parameter iv_success | <p class="shorttext synchronized" lang="en">Operation success flag</p>
+      "! @parameter is_work_order | <p class="shorttext synchronized" lang="en">Work order structure</p>
+      "! @parameter ev_out | <p class="shorttext synchronized" lang="en"></p>
+      display_update_result
+        IMPORTING
+          iv_success    TYPE abap_bool
+          is_work_order TYPE ztwork_order_noa
+          ev_out        TYPE REF TO if_oo_adt_classrun_out,
+
+      "! <p class="shorttext synchronized" lang="en">
+      "!    Method that displays a message depending if the users has authorization to do an operation in the database
+      "! </p>
+      "!
+      "! @parameter iv_success | <p class="shorttext synchronized" lang="en">Operation success flag</p>
+      "! @parameter iv_operation | <p class="shorttext synchronized" lang="en">Operation name</p>
+      display_authorization_message
+        IMPORTING
+          iv_success   TYPE abap_bool
+          iv_operation TYPE string
+          ev_out       TYPE REF TO if_oo_adt_classrun_out.
 ENDCLASS.
 
 
@@ -89,11 +154,11 @@ CLASS zcl_work_order_crud_test_noa IMPLEMENTATION.
 
     DATA(lv_success) = o_work_orders_management->create_work_order( iv_work_order = ls_work_order_ex_1 ).
 
-    IF lv_success = abap_true.
-      ev_out->write( | The record with WORK ORDER ID: { ls_work_order_ex_1-work_order_id }  has been successfully created. | ).
-    ELSE.
-      ev_out->write( | The record with WORK ORDER ID: { ls_work_order_ex_1-work_order_id }  hasn't been successfully created. | ).
-    ENDIF.
+    display_creation_result(
+      iv_success     = lv_success
+      iv_work_order  = ls_work_order_ex_1
+      ev_out         = ev_out
+    ).
 
     " Create a new work order with the same key as the first work order that was inserted
     DATA(ls_work_order_ex_2) = VALUE ztwork_order_noa(
@@ -108,11 +173,12 @@ CLASS zcl_work_order_crud_test_noa IMPLEMENTATION.
 
     lv_success = o_work_orders_management->create_work_order( iv_work_order = ls_work_order_ex_2 ).
 
-    IF lv_success = abap_true.
-      ev_out->write( | The record with WORK ORDER ID: { ls_work_order_ex_2-work_order_id }  has been successfully created. | ).
-    ELSE.
-      ev_out->write( | The record with WORK ORDER ID: { ls_work_order_ex_2-work_order_id }  hasn't been successfully created. | ).
-    ENDIF.
+    display_creation_result(
+      iv_success     = lv_success
+      iv_work_order  = ls_work_order_ex_2
+      ev_out         = ev_out
+    ).
+
 
     " Create a new work order with a customer_id that not exists in our database
     DATA(ls_work_order_ex_3) = VALUE ztwork_order_noa(
@@ -127,11 +193,12 @@ CLASS zcl_work_order_crud_test_noa IMPLEMENTATION.
 
     lv_success = o_work_orders_management->create_work_order( iv_work_order = ls_work_order_ex_3 ).
 
-    IF lv_success = abap_true.
-      ev_out->write( | The record with WORK ORDER ID:{ ls_work_order_ex_3-work_order_id } has been successfully created. | ).
-    ELSE.
-      ev_out->write( | The record with WORK ORDER ID:{ ls_work_order_ex_3-work_order_id } hasn't been successfully created. | ).
-    ENDIF.
+    display_creation_result(
+      iv_success     = lv_success
+      iv_work_order  = ls_work_order_ex_3
+      ev_out         = ev_out
+    ).
+
 
     " Create a new work order with a technical_id that not exists in our database
     DATA(ls_work_order_ex_4) = VALUE ztwork_order_noa(
@@ -146,11 +213,12 @@ CLASS zcl_work_order_crud_test_noa IMPLEMENTATION.
 
     lv_success = o_work_orders_management->create_work_order( iv_work_order = ls_work_order_ex_4 ).
 
-    IF lv_success = abap_true.
-      ev_out->write( | The record with WORK ORDER ID:{ ls_work_order_ex_4-work_order_id } has been successfully created.| ).
-    ELSE.
-      ev_out->write( | The record with WORK ORDER ID: { ls_work_order_ex_4-work_order_id } hasn't been successfully created.| ).
-    ENDIF.
+    display_creation_result(
+      iv_success     = lv_success
+      iv_work_order  = ls_work_order_ex_4
+      ev_out         = ev_out
+    ).
+
 
     " Create a new work order
     DATA(ls_work_order_ex_5) = VALUE ztwork_order_noa(
@@ -165,11 +233,12 @@ CLASS zcl_work_order_crud_test_noa IMPLEMENTATION.
 
     lv_success = o_work_orders_management->create_work_order( iv_work_order = ls_work_order_ex_5 ).
 
-    IF lv_success = abap_true.
-      ev_out->write( | The record with WORK ORDER ID: { ls_work_order_ex_5-work_order_id }  has been successfully created. | ).
-    ELSE.
-      ev_out->write( | The record with WORK ORDER ID: { ls_work_order_ex_5-work_order_id }  hasn't been successfully created. | ).
-    ENDIF.
+    display_creation_result(
+      iv_success     = lv_success
+      iv_work_order  = ls_work_order_ex_5
+      ev_out         = ev_out
+    ).
+
   ENDMETHOD.
 
   METHOD test_delete_work_order.
@@ -185,52 +254,72 @@ CLASS zcl_work_order_crud_test_noa IMPLEMENTATION.
     description    = 'Extension of electrical wiring installation'
     ).
 
+    DATA(lv_authorized) = o_work_orders_management->check_authorization( iv_activity = '06' ).
 
-    DATA(lv_success) = o_work_orders_management->delete_work_order(
-                         iv_work_order = ls_work_order_ex ).
+    display_authorization_message(
+      iv_success = lv_authorized
+      iv_operation = |Delete operation|
+      ev_out     = ev_out
+    ).
 
-
-    IF lv_success = abap_true.
-      ev_out->write( |The work order { ls_work_order_ex-work_order_id } has been deleted.| ).
-    ELSE.
-      ev_out->write( |The work order { ls_work_order_ex-work_order_id } couldn't be deleted| ).
-    ENDIF.
-
-    " Try to delete a work order that exists in the database
-    DATA(ls_work_order_ex_1) = VALUE ztwork_order_noa(
-    work_order_id  = 'WO001'
-    customer_id    = 'CUST001'
-    technician_id  = 'TECH001'
-    creation_date  = '20240401'
-    status         = ' '
-    priority       = 'A'
-    description    = 'Electrical wiring installation'
-  ).
-
-    lv_success = o_work_orders_management->delete_work_order(
-                         iv_work_order = ls_work_order_ex_1 ).
+    IF lv_authorized EQ abap_true.
+      DATA(lv_success) = o_work_orders_management->delete_work_order(
+                           iv_work_order = ls_work_order_ex ).
 
 
-    IF lv_success = abap_true.
-      ev_out->write( |The work order { ls_work_order_ex_1-work_order_id } has been deleted.| ).
-    ELSE.
-      ev_out->write( |The work order { ls_work_order_ex_1-work_order_id } couldn't be deleted| ).
+      display_deletion_result(
+        iv_success       = lv_success
+        iv_work_order_id = ls_work_order_ex-work_order_id
+        ev_out           = ev_out
+      ).
+
+      " Try to delete a work order that exists in the database
+      DATA(ls_work_order_ex_1) = VALUE ztwork_order_noa(
+      work_order_id  = 'WO001'
+      customer_id    = 'CUST001'
+      technician_id  = 'TECH001'
+      creation_date  = '20240401'
+      status         = ' '
+      priority       = 'A'
+      description    = 'Electrical wiring installation'
+    ).
+
+      lv_success = o_work_orders_management->delete_work_order(
+                           iv_work_order = ls_work_order_ex_1 ).
+
+
+      display_deletion_result(
+        iv_success       = lv_success
+        iv_work_order_id = ls_work_order_ex_1-work_order_id
+        ev_out           = ev_out
+      ).
     ENDIF.
   ENDMETHOD.
 
   METHOD test_read_work_order.
     DATA:lv_work_order_id TYPE ztwork_order_noa-work_order_id VALUE 'WO001',
-         lv_work_order    TYPE ztwork_order_noa.
+         ls_work_order    TYPE ztwork_order_noa.
 
-    DATA(lv_success) = o_work_orders_management->read_work_order(
-    EXPORTING iv_work_order_id = lv_work_order_id
-    IMPORTING ev_read_work_order = lv_work_order ).
+    DATA(lv_authorized) = o_work_orders_management->check_authorization( iv_activity = '03' ).
 
-    IF lv_success = abap_true.
-      ev_out->write( |The work order { lv_work_order_id } exists in the database. Work order: { lv_work_order-work_order_id }, Status: { lv_work_order-status }, Customer id: { lv_work_order-customer_id }, Technical id: { lv_work_order-technician_id }| &&
-                     | Priority: { lv_work_order-priority }, Creation date: { lv_work_order-creation_date }, Description: { lv_work_order-description }| ).
-    ELSE.
-      ev_out->write( |The work order { lv_work_order_id } hasn't been found.| ).
+    display_authorization_message(
+      iv_success = lv_authorized
+      iv_operation = |Read operation|
+      ev_out     = ev_out
+    ).
+
+    IF lv_authorized EQ abap_true.
+
+      DATA(lv_success) = o_work_orders_management->read_work_order(
+      EXPORTING iv_work_order_id = lv_work_order_id
+      IMPORTING ev_read_work_order = ls_work_order ).
+
+      display_read_result(
+        iv_success        = lv_success
+        iv_work_order_id  = lv_work_order_id
+        is_work_order     = ls_work_order
+        ev_out            = ev_out
+      ).
     ENDIF.
   ENDMETHOD.
 
@@ -246,15 +335,25 @@ CLASS zcl_work_order_crud_test_noa IMPLEMENTATION.
       description    = 'Update something...'
     ).
 
-    DATA(lv_success) = o_work_orders_management->update_work_order(
-                         iv_work_order = ls_updated_order ).
+    DATA(lv_authorized) = o_work_orders_management->check_authorization( iv_activity = '02' ).
 
-    IF lv_success = abap_true.
-      ev_out->write( |The work order { ls_updated_order-work_order_id } has been updated succesfully.| ).
-    ELSE.
-      ev_out->write( |The work order couldn't be updated: { ls_updated_order-work_order_id }.| ).
+    display_authorization_message(
+      iv_success = lv_authorized
+      iv_operation = |Update operation|
+      ev_out     = ev_out
+    ).
+
+    IF lv_authorized EQ abap_true.
+      DATA(lv_success) = o_work_orders_management->update_work_order(
+                           iv_work_order = ls_updated_order ).
+
+      display_update_result(
+        iv_success    = lv_success
+        is_work_order = ls_updated_order
+        ev_out        = ev_out
+      ).
+
     ENDIF.
-
   ENDMETHOD.
 
   METHOD prepare_ddbb.
@@ -293,6 +392,52 @@ CLASS zcl_work_order_crud_test_noa IMPLEMENTATION.
 
     MODIFY zttechnician_noa FROM TABLE @lt_technicians.
 
+  ENDMETHOD.
+
+  METHOD display_creation_result.
+    IF iv_success = abap_true.
+      ev_out->write( |The record with WORK ORDER ID: { iv_work_order-work_order_id } has been successfully created.| ).
+    ELSE.
+      ev_out->write( |The record with WORK ORDER ID: { iv_work_order-work_order_id } hasn't been successfully created.| ).
+    ENDIF.
+  ENDMETHOD.
+
+  METHOD display_deletion_result.
+    IF iv_success = abap_true.
+      ev_out->write( |The work order { iv_work_order_id } has been deleted.| ).
+    ELSE.
+      ev_out->write( |The work order { iv_work_order_id } couldn't be deleted.| ).
+    ENDIF.
+  ENDMETHOD.
+
+  METHOD display_read_result.
+    IF iv_success = abap_true.
+      ev_out->write(
+        |The work order { is_work_order-work_order_id } exists in the database. | &&
+        |Work order: { is_work_order-work_order_id }, Status: { is_work_order-status }, | &&
+        |Customer id: { is_work_order-customer_id }, Technician id: { is_work_order-technician_id }, | &&
+        |Priority: { is_work_order-priority }, Creation date: { is_work_order-creation_date }, | &&
+        |Description: { is_work_order-description }|
+      ).
+    ELSE.
+      ev_out->write( |The work order { iv_work_order_id } hasn't been found.| ).
+    ENDIF.
+  ENDMETHOD.
+
+  METHOD display_update_result.
+    IF iv_success = abap_true.
+      ev_out->write( |The work order { is_work_order-work_order_id } has been updated successfully.| ).
+    ELSE.
+      ev_out->write( |The work order couldn't be updated: { is_work_order-work_order_id }.| ).
+    ENDIF.
+  ENDMETHOD.
+
+  METHOD display_authorization_message.
+    IF iv_success = abap_true.
+      ev_out->write( |{ iv_operation } is authorized for the user { sy-uname }.| ).
+    ELSE.
+      ev_out->write( |{ iv_operation } is not authorized for the user { sy-uname }.| ).
+    ENDIF.
   ENDMETHOD.
 
 ENDCLASS.
